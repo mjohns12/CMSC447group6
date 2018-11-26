@@ -1,0 +1,50 @@
+[{
+    "id": 123456,
+    "events": [{
+        "id": 12345,
+        "fName": "Bob",
+        "lName": "Joe",
+        "streetNum": 5678,
+        "street": "Place",
+        "city": "Street",
+        "state": "MD",
+        "zipCode": 11111,
+        "phoneNum": 1111111111,
+        "timeCalledIn": "1/1/2018",
+        "description": "This is a description",
+        "priority": 5,
+        "equipmentNeeded": [],
+        "statuses": []
+    }, {
+        "id": 23456,
+        "fName": "Joe",
+        "lName": "Bob",
+        "streetNum": 5678,
+        "street": "Place",
+        "city": "Street",
+        "state": "MD",
+        "zipCode": 11111,
+        "phoneNum": 1111111111,
+        "timeCalledIn": "1/1/2018",
+        "description": "This is a description",
+        "priority": 5,
+        "equipmentNeeded": [],
+        "statuses": []
+    }],
+    "firstResponders": [{
+        "id": 98765,
+        "phoneNumber": 2222222222,
+        "firstName": "Foo",
+        "lastName": "Bar",
+        "branchName": "FooBarBanch",
+        "email": "foo@bar.com",
+        "assignedMissionID": 123456,
+        "occupation": "Fireman",
+        "statuses": []
+    }],
+    "equipment": [{
+        "id": 1,
+        "equipmentType": "Shovel",
+        "quantity": 4
+    }]
+}]
