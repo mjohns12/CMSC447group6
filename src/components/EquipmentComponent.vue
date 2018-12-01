@@ -21,11 +21,15 @@
 <style scoped>
   div.row {
     display: flex;
-    margin: 4px 0;
+    margin: 10px 0;
     border: 2px solid #dfdfdf;
-    padding: 4px;
+    border-radius: 10px;
+    padding: 10px;
   }
   .row > div {
     flex: 1 1 auto;
+    border: 1px solid #dfdfdf;
+    border-radius: 5px;
+    margin: 2px;
   }
 </style>

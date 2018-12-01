@@ -1,6 +1,6 @@
 <template>
   <div class="inProgress">
-    <MissionComponent v-for="mission in testMissions"
+    <MissionComponent v-for="mission in missions"
       v-bind:key="mission.id"
       v-bind:mission="mission">
     </MissionComponent>
@@ -8,9 +8,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
   import MissionComponent from '@/components/MissionComponent.vue';
   import { Mission } from '@/interfaces/Mission';
+  import { Service } from '@/Services';
 
   @Component({
     name: 'inProgress',
@@ -19,11 +20,11 @@
     },
   })
   export default class MissionInProgress extends Vue {
-    @Prop() private missions!: Mission[];
+    private missions: Mission[] | null = null;
+    private service = new Service();
 
-    get testMissions() {
-      const json = require('../test_files/missions.json');
-      return json;
+    private async created(): Promise<void> {
+      this.missions = await this.service.getMissions();
     }
   }
 

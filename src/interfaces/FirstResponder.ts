@@ -1,4 +1,3 @@
-import { Event } from './Event';
 
 export class FirstResponder {
     constructor(
@@ -8,24 +7,32 @@ export class FirstResponder {
             public lastName: string,
             public branchName: string,
             public email: string,
-            public assignedMissionID: number,
-            public occupation: string,
-            public statuses: ResponderStatus[]) { }
+            public occupation: Occupation,
+            public statuses: ResponderStatus[],
+            public assignedMissionID?: number) { }
 
     public getName() {
         return this.firstName + ' ' + this.lastName;
     }
 }
 
-interface ResponderStatus {
+export interface ResponderStatus {
     time: Date;
     status: ResponderStatusType;
-    event: Event;
+    /* param eventid: unique ID of the currently assigned event */
+    eventid?: number;
 }
 
-enum ResponderStatusType {
-    unassigned,
-    undecided,
-    attending,
-    working
+export enum ResponderStatusType {
+    unassigned = 'Unassigned',
+    undecided = 'Undecided',
+    attending = 'Attending',
+    working = 'Working'
+}
+
+export enum Occupation {
+    Fire = 'Fire',
+    Police = 'Police',
+    Medical = 'Medical',
+    Other = 'Other'
 }

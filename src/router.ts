@@ -4,14 +4,18 @@ import Home from './views/Home.vue';
 
 Vue.use(Router);
 
+function responderRouteParams(route: any) {
+  return {
+    id: parseInt(route.params.id, 10)
+  };
+}
+
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'home',
       component: Home,
-    },
-    {
+    }, {
       path: '/op-chief',
       name: 'Operations Chief Home',
       component: () => import('./views/opChiefView.vue'),
@@ -20,15 +24,23 @@ export default new Router({
           component: () => import('./views/MissionsInProgress.vue'),
         }, {
           path: 'create-mission',
-          component: () => import('./views/MissionsInProgress.vue'),
+          component: () => import('./views/NewMission.vue'),
         }, {
           path: 'create-responder',
-          component: () => import('./views/MissionsInProgress.vue'),
+          component: () => import('./views/CreateResponder.vue'),
         }, {
           path: 'create-equipment',
-          component: () => import('./views/MissionsInProgress.vue'),
+          component: () => import('./views/CreateEquipment.vue'),
         },
       ],
-    },
+    }, {
+      path: '/call-center',
+      name: 'Create Event',
+      component: () => import('./views/CreateEvent.vue')
+    }, {
+      path: '/first-responder/:id',
+      component: () => import('./views/ResponderView.vue'),
+      props: responderRouteParams
+    }
   ],
 });

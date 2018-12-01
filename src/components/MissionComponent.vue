@@ -1,45 +1,44 @@
 
 <template>
-  <div class="mission">
-    <b-card-header header-tag="header" class="p-1" role="tab">
+  <b-card class="mb-3"
+          align="left"
+          border-variant="primary"
+          :header="'Mission ID: ' + mission.id"
+          header-bg-variant="primary"
+          header-text-variant="white">
+    <div class="button-container">
       <b-btn block v-b-toggle.events variant="primary">Events</b-btn>
-    </b-card-header>
+    </div>
     <b-collapse id="events" class="mt-2">
-      <b-card>
-        <EventComponent 
-          v-for="event in mission.events" 
-          v-bind:key="event.id" 
-          v-bind:event="event">
-        </EventComponent>
-      </b-card>
+      <EventComponent 
+        v-for="event in mission.events" 
+        v-bind:key="event.id" 
+        v-bind:event="event">
+      </EventComponent>
     </b-collapse>
     
-    <b-card-header header-tag="header" class="p-1" role="tab">
+    <div class="button-container">
       <b-btn block v-b-toggle.first-responders variant="primary">First Responders</b-btn>
-    </b-card-header>
+    </div>
     <b-collapse id="first-responders" class="mt-2">
-      <b-card>
-        <ResponderComponent 
-          v-for="responder in mission.firstResponders"
-          v-bind:key="responder.id" 
-          v-bind:firstResponder="responder">
-        </ResponderComponent>
-      </b-card>
+      <ResponderComponent 
+        v-for="responder in mission.firstResponders"
+        v-bind:key="responder.id" 
+        v-bind:firstResponder="responder">
+      </ResponderComponent>
     </b-collapse>
     
-    <b-card-header header-tag="header" class="p-1" role="tab">
+    <div class="button-container">
       <b-btn block v-b-toggle.equipment variant="primary">Equipment</b-btn>
-    </b-card-header>
+    </div>
     <b-collapse id="equipment" class="mt-2">
-      <b-card>
-        <EquipmentComponent 
-          v-for="equipment in mission.equipment" 
-          v-bind:key="equipment.id" 
-          v-bind:equipment="equipment">
-        </EquipmentComponent>
-      </b-card>
+      <EquipmentComponent 
+        v-for="equipment in mission.equipment" 
+        v-bind:key="equipment.id" 
+        v-bind:equipment="equipment">
+      </EquipmentComponent>
     </b-collapse>
-  </div>
+  </b-card>
 </template>
 
 <script lang="ts">
@@ -63,18 +62,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h3 {
-    margin: 40px 0 0;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
+  div.button-container {
+    padding: 5px 0;
   }
 </style>

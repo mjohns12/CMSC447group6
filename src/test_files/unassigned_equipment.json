@@ -1,0 +1,17 @@
+[{
+    "id": 1,
+    "equipmentType": "Shovel",
+    "quantity": 4
+}, {
+    "id": 2,
+    "equipmentType": "Pickaxe",
+    "quantity": 2
+}, {
+    "id": 3,
+    "equipmentType": "Axe",
+    "quantity": 7
+}, {
+    "id": 4,
+    "equipmentType": "Drill",
+    "quantity": 1
+}]

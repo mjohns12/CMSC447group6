@@ -1,0 +1,18 @@
+[{
+    "id": 98765,
+    "phoneNumber": 2222222222,
+    "firstName": "Foo",
+    "lastName": "Bar",
+    "branchName": "FooBarBanch",
+    "email": "foo@bar.com",
+    "assignedMissionID": 123456,
+    "occupation": "Fireman",
+    "statuses": [{
+        "time": "2018-09-27T02:29:20.878Z",
+        "status": "Started",
+        "eventid": 12345
+    }, {
+        "time": "2018-08-27T02:29:20.878Z",
+        "status":"Undecided"
+    }]
+}]

@@ -19,14 +19,14 @@ export class Event {
     ) { }
 }
 
-interface EventStatus {
+export interface EventStatus {
     time: Date;
     status: EventStatusType;
 }
 
-enum EventStatusType {
-    pending,
-    started,
-    aborted,
-    finished
+export enum EventStatusType {
+    pending = 'Pending',
+    started = 'Started',
+    aborted = 'Aborted',
+    finished = 'Finished'
 }
