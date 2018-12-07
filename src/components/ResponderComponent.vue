@@ -1,13 +1,33 @@
 
 <template>
-  <div class="row">
-    <div>ID: {{ firstResponder.id }}</div>
-    <div>Name: {{ responderName }}</div>
-    <div>Phone #: {{ firstResponder.phoneNumber }}</div>
-    <div>Occupation: {{ firstResponder.occupation }}</div>
-    <div>Most Recent Status: {{ mostRecentStatus.status }}</div>
-    <div v-if="mostRecentStatus.event">Event ID: {{ mostRecentStatus.event.id }}</div>
-  </div>
+  <b-card no-body :header="'<b>Responder Name: </b>' + responderName">
+    <b-container fluid>
+      <b-row>
+        <b-col class="no-padding">
+          <div class="responder-titles">ID</div>
+          <div>{{ firstResponder.id }}</div>
+        </b-col>
+        <b-col class="no-padding">
+          <div class="responder-titles">Phone #</div>
+          <div>{{ firstResponder.phoneNumber }}</div>
+        </b-col>
+        <b-col class="no-padding">
+          <div class="responder-titles">Occupation</div>
+          <div>{{ firstResponder.occupation }}</div>
+        </b-col>
+        <b-col class="no-padding">
+          <div class="responder-titles">Status</div>
+          <div>{{ mostRecentStatus.status }}</div>
+        </b-col>
+        <b-col v-if="mostRecentStatus.eventid"
+               class="no-padding">
+          <div class="responder-titles">Event ID</div>
+          <div>{{ mostRecentStatus.eventid }}</div>
+        </b-col>
+      </b-row>
+    </b-container>
+    <div class="footer" slot="footer"><slot/></div>
+  </b-card>
 </template>
 
 <script lang="ts">
@@ -39,17 +59,21 @@
 </script>
 
 <style scoped>
-  div.row {
-    display: flex;
-    margin: 10px 0;
-    border: 2px solid #dfdfdf;
-    border-radius: 10px;
-    padding: 10px;
+  .no-padding {
+    padding: 0;
   }
-  .row > div {
-    flex: 1 1 auto;
-    border: 1px solid #dfdfdf;
-    border-radius: 5px;
-    margin: 2px;
+  .no-padding > div {
+    padding: 0 4px;
+  }
+  .responder-titles {
+    background: #f7f7f7;
+    font-weight: bolder;
+  }
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    margin: 0 3px;
   }
 </style>

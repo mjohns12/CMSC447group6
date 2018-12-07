@@ -1,20 +1,41 @@
 
 <template>
-  <div class="row">
-    <div>ID: {{ event.id }}</div>
-    <div>Priority: {{ event.priority }}</div>
-    <div>Location: {{ location }}</div>
-    <div v-if="mostRecentStatus">Status: {{ mostRecentStatus.status }}</div>
-  </div>
+  <b-card no-body :header="'<b>Event ID: </b>' + event.id">
+    <b-container>
+      <b-row>
+        <b-col class="no-padding">
+          <div class="event-titles">Priority</div>
+          <div>{{ event.priority }}</div>
+        </b-col>
+        <b-col class="no-padding"
+               cols="5">
+          <div class="event-titles">Location</div>
+          <div>{{ location }}</div>
+        </b-col>
+        <b-col class="no-padding">
+          <div class="event-titles">Status</div>
+          <div v-if="mostRecentStatus">{{ mostRecentStatus.status }}</div>
+          <div v-if="!mostRecentStatus">Unknown</div>
+        </b-col>
+      </b-row>
+    </b-container>
+    <div class="footer" slot="footer"><slot/></div>
+  </b-card>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Event, EventStatus, EventStatusType } from '@/interfaces/Event';
+  import Icon from 'vue-awesome/components/Icon.vue';
 
-  @Component
+  @Component({
+    components: {
+      Icon
+    }
+  })
   export default class EventComponent extends Vue {
     @Prop() private event!: Event;
+    @Prop() private buttons!: any;
 
     get location(): string {
         return this.event.streetNum + ' ' + this.event.street + ' ' + this.event.city + ' ' + this.event.state;
@@ -37,18 +58,21 @@
 </script>
 
 <style scoped>
-  div.row {
-    display: flex;
-    margin: 10px 0;
-    border: 2px solid #dfdfdf;
-    border-radius: 10px;
-    padding: 10px;
+  .no-padding {
+    padding: 0;
   }
-
-  .row > div {
-    flex: 1 1 auto;
-    border: 1px solid #dfdfdf;
-    border-radius: 5px;
-    margin: 2px;
+  .no-padding > div {
+    padding: 0 4px;
+  }
+  .event-titles {
+    background: #f7f7f7;
+    font-weight: bolder;
+  }
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    margin: 0 3px;
   }
 </style>

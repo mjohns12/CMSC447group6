@@ -1,10 +1,20 @@
 
 <template>
-  <div class="row">
-    <div>ID: {{ equipment.id }}</div>
-    <div>Name: {{ equipment.equipmentType }}</div>
-    <div>Quantity: {{ equipment.quantity }}</div>
-  </div>
+  <b-card no-body :header="'<b>Equipment Name: </b>' + equipment.equipmentType">
+    <b-container fluid>
+      <b-row>
+        <b-col class="no-padding">
+          <div class="equip-titles">ID:</div>
+          <div>{{ equipment.id }}</div>
+        </b-col>
+        <b-col class="no-padding">
+          <div class="equip-titles">Quantity:</div>
+          <div>{{ equipment.quantity }}</div>
+        </b-col>
+      </b-row>
+    </b-container>
+    <div class="footer" slot="footer"><slot/></div>
+  </b-card>
 </template>
 
 <script lang="ts">
@@ -19,17 +29,21 @@
 </script>
 
 <style scoped>
-  div.row {
-    display: flex;
-    margin: 10px 0;
-    border: 2px solid #dfdfdf;
-    border-radius: 10px;
-    padding: 10px;
+  .no-padding {
+    padding: 0;
   }
-  .row > div {
-    flex: 1 1 auto;
-    border: 1px solid #dfdfdf;
-    border-radius: 5px;
-    margin: 2px;
+  .no-padding > div {
+    padding: 0 4px;
+  }
+  .equip-titles {
+    background: #f7f7f7;
+    font-weight: bolder;
+  }
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    margin: 0 3px;
   }
 </style>
