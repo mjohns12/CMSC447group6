@@ -7,14 +7,19 @@
              title="Add Equipment to Mission"
              size="lg"
              @show="onShow()"
-             centered
-             no-fade
-             lazy>
-      <div>
-        <EquipmentComponent v-for="equip in unassignedEquipment" 
+             @ok="onSubmit()">
+      <b-card-group columns>
+        <EquipmentComponent v-for="(equip, index) in unassignedEquipment" 
                             :key="equip.id" 
-                            :equipment="equip"/>
-      </div>
+                            :equipment="equip">
+          <b-form-select :id="'input-' + equip.id"
+                         v-model="selected[index].quantity"
+                         :options="range(1, equip.quantity)"
+                         size="sm"
+                         type="number"
+                         placeholder="Number"/>
+        </EquipmentComponent>
+      </b-card-group>
     </b-modal>
   </div>
 </template>
@@ -34,7 +39,10 @@
     @Prop() private missionid!: number;
     private unassignedEquipment: Equipment[] = [];
     private service: Service;
-    private selected: Equipment[] = [];
+    private selected: Array<{
+      quantity: number | null
+      equipment: Equipment
+    }> = [];
 
     constructor() {
       super();
@@ -43,6 +51,32 @@
 
     private async onShow() {
       this.unassignedEquipment = await this.service.getUnassignedEquipment();
+      this.selected = this.unassignedEquipment
+      .map((equip: Equipment) => {
+        return {
+          quantity: null,
+          equipment: equip
+        };
+      });
+    }
+
+    private async onSubmit() {
+      this.selected.forEach((toAdd) => {
+        if (toAdd.quantity) {
+          this.service.addEquipmentToMission(toAdd.equipment, toAdd.quantity, this.missionid);
+        }
+      });
+    }
+
+    private range(start: number, end: number): number[] {
+      if (end < start) {
+        return [];
+      }
+      const n = Array(end - start);
+      for (let i = 0; i <= end - start; i++) {
+        n[i] = start + i;
+      }
+      return n;
     }
   }
 </script>
