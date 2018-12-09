@@ -42,17 +42,17 @@ export class Service {
   }
 
   /* Adds a new status to the event that makes it associated to a mission */
-  public async addEventToMission(event: Event, mission: Mission): Promise<void> {
+  public async addEventToMission(event: Event, missionid: number): Promise<void> {
     alert(`Add the part that adds event #${event.id} to the mission.`);
   }
 
   /* Adds a new status to the responder that associates it with this mission */
-  public async addResponderToMission(responder: FirstResponder, mission: Mission): Promise<void> {
+  public async addResponderToMission(responder: FirstResponder, missionid: number): Promise<void> {
     alert(`Add the part that adds responder #${responder.id} to the mission.`);
   }
 
   /* Adds the equipment quantity to the mission */
-  public async addEquipmentToMission(equip: Equipment, equipmentNum: number, mission: Mission): Promise<void> {
+  public async addEquipmentToMission(equip: Equipment, equipmentNum: number, missionid: number): Promise<void> {
     alert(`Add the part that adds equipment #${equip.id} to the mission.`);
   }
 
