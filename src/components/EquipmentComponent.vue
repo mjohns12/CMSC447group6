@@ -1,6 +1,6 @@
 
 <template>
-  <b-card no-body :header="'<b>Equipment Name: </b>' + equipment.equipmentType">
+  <b-card no-body :header="'<b>Equipment: </b>' + equipment.equipmentType">
     <b-container fluid>
       <b-row>
         <b-col class="no-padding">

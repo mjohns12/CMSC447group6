@@ -14,27 +14,11 @@
         <EventComponent :event="event"
                         v-for="event in mission.events"
                         :key="event.id">
-          <b-btn v-b-modal="'edit-event-' + event.id">Edit</b-btn>
+          <EventDetailModal :event="event" :missionid="mission.id"/>
           <b-btn variant="danger" @click="service.removeEventFromMission(event)">Remove</b-btn>
-          <b-modal :id="'edit-event-' + event.id" 
-                   title="Using Component Methods"
-                   lazy>
-            <div class="d-block text-center">
-              <h3>Hello From My Modal!</h3>
-            </div>
-          </b-modal>
         </EventComponent>
       </b-card-group>
-      <div class="interior-button">
-        <b-btn block v-b-modal.new-event>Add Event</b-btn>
-      </div>
-      <b-modal id="new-event" 
-               title="Add Event to Mission"
-               lazy>
-        <div class="d-block text-center">
-          <h3>Add a new First Responder</h3>
-        </div>
-      </b-modal>
+      <AddEventModal :missionid="mission.id"/>
     </b-collapse>
     
     <div class="button-container">
@@ -48,24 +32,14 @@
           <b-btn v-b-modal="'edit-responder-' + responder.id">Edit</b-btn>
           <b-btn variant="danger" @click="service.removeResponderFromMission(responder)">Remove</b-btn>
           <b-modal :id="'edit-responder-' + responder.id" 
-                   title="Using Component Methods"
-                   lazy>
+                   title="Using Component Methods">
             <div class="d-block text-center">
               <h3>Hello From My Modal!</h3>
             </div>
           </b-modal>
         </ResponderComponent>
       </b-card-group>
-      <div class="interior-button">
-        <b-btn block v-b-modal.new-responder>Add First Responder</b-btn>
-      </div>
-      <b-modal id="new-responder" 
-                title="Add First Responders to Mission"
-                lazy>
-        <div class="d-block text-center">
-          <h3>Add a new First Responder</h3>
-        </div>
-      </b-modal>
+      <AddResponderModal :missionid="mission.id"/>
     </b-collapse>
 
     <div class="button-container">
@@ -79,8 +53,7 @@
           <b-btn v-b-modal="'edit-equipment-' + equipment.id">Edit</b-btn>
           <b-btn variant="danger" @click="service.removeEquipmentFromMission(equipment)">Remove</b-btn>
           <b-modal :id="'edit-equipment-' + equipment.id" 
-                   title="Using Component Methods"
-                   lazy>
+                   title="Using Component Methods">
             <div class="d-block text-center">
               <h3>Hello From My Modal!</h3>
             </div>
@@ -100,7 +73,9 @@
   import ResponderComponent from './ResponderComponent.vue';
   import EquipmentComponent from './EquipmentComponent.vue';
   import AddEquipmentModal from './AddEquipmentModal.vue';
-  import 'vue-awesome/icons/trash-alt';
+  import AddResponderModal from './AddResponderModal.vue';
+  import AddEventModal from './AddEventModal.vue';
+  import EventDetailModal from './EventDetailModal.vue';
   import { Service } from '@/Services';
 
   @Component({
@@ -108,7 +83,10 @@
       EventComponent,
       ResponderComponent,
       EquipmentComponent,
-      AddEquipmentModal
+      AddEquipmentModal,
+      AddResponderModal,
+      AddEventModal,
+      EventDetailModal
     }
   })
   export default class MissionComponent extends Vue {

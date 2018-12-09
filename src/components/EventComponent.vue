@@ -13,6 +13,23 @@
           <div>{{ location }}</div>
         </b-col>
         <b-col class="no-padding">
+          <div class="event-titles">State</div>
+          <div>{{ event.state }}</div>
+        </b-col>
+        <b-col class="no-padding">
+          <div class="event-titles">ZIP</div>
+          <div>{{ event.zipCode }}</div>
+        </b-col>
+        <b-col class="no-padding"
+               cols="3">
+          <div class="event-titles">Caller</div>
+          <div>{{ caller }}</div>
+        </b-col>
+        <b-col class="no-padding">
+          <div class="event-titles">Phone #</div>
+          <div>{{ event.phoneNum }}</div>
+        </b-col>
+        <b-col class="no-padding">
           <div class="event-titles">Status</div>
           <div v-if="mostRecentStatus">{{ mostRecentStatus.status }}</div>
           <div v-if="!mostRecentStatus">Unknown</div>
@@ -38,7 +55,11 @@
     @Prop() private buttons!: any;
 
     get location(): string {
-        return this.event.streetNum + ' ' + this.event.street + ' ' + this.event.city + ' ' + this.event.state;
+        return this.event.streetNum + ' ' + this.event.street + ' ' + this.event.city;
+    }
+
+    get caller(): string {
+      return this.event.fName + ' ' + this.event.lName;
     }
 
     get mostRecentStatus(): EventStatus {
