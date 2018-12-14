@@ -50,7 +50,7 @@
     }
 
     private async onShow() {
-      this.unassignedEquipment = await this.service.getUnassignedEquipment();
+      this.unassignedEquipment = await this.service.getAllEquipment();
       this.selected = this.unassignedEquipment
       .map((equip: Equipment) => {
         return {
@@ -63,7 +63,7 @@
     private async onSubmit() {
       this.selected.forEach((toAdd) => {
         if (toAdd.quantity) {
-          this.service.addEquipmentToMission(toAdd.equipment, toAdd.quantity, this.missionid);
+          // this.service.addEquipmentToMission(toAdd.equipment, toAdd.quantity, this.missionid);
         }
       });
     }

@@ -20,7 +20,8 @@ export interface ResponderStatus {
     time: Date;
     status: ResponderStatusType;
     /* param eventid: unique ID of the currently assigned event */
-    eventid?: number;
+    event_id?: number;
+    mission_id?: number;
 }
 
 export enum ResponderStatusType {

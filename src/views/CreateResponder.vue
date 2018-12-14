@@ -78,10 +78,12 @@
 
   import { Component, Vue } from 'vue-property-decorator';
   import { Occupation } from '@/interfaces/FirstResponder';
+  import { Service } from '@/Services';
 
   @Component
   export default class CreateResponder extends Vue {
   
+    private service = new Service();
     private form = {
       email: '',
       fName: '',
@@ -98,7 +100,7 @@
 
     private onSubmit(evt: Event) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.service.createResponder(this.form);
     }
 
     private onReset(evt: Event) {

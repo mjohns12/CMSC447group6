@@ -14,8 +14,10 @@ export class Event {
         public timeCalledIn: Date,
         public description: string,
         public priority: number,
-        public equipmentNeeded: Equipment[],
-        public statuses: EventStatus[]
+        public equipment: Equipment[],
+        public statuses: EventStatus[],
+        public lat: number,
+        public lon: number
     ) { }
 }
 

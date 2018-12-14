@@ -67,7 +67,7 @@
       [this.events, this.responders, this.equipment] = await Promise.all([
         this.service.getUnassignedEvents(),
         this.service.getUnassignedResponders(),
-        this.service.getUnassignedEquipment()
+        this.service.getAllEquipment()
       ]);
     }
   }

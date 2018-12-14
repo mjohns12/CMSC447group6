@@ -20,7 +20,9 @@
         }, {
             "time": "2018-08-27T02:29:20.878Z",
             "status":"Pending"
-        }]
+        }],
+        "lat": 12.2045,
+        "lon": 34.0671
     }, {
         "id": 23456,
         "fName": "Joe",
@@ -34,8 +36,14 @@
         "timeCalledIn": "1/1/2018",
         "description": "This is a description",
         "priority": 5,
-        "equipmentNeeded": [],
-        "statuses": []
+        "equipmentNeeded": [{
+            "id": 3,
+            "equipmentType": "Axe",
+            "quantity": 7
+        }],
+        "statuses": [],
+        "lat": 13.2045,
+        "lon": 35.0671
     }],
     "firstResponders": [{
         "id": 98765,

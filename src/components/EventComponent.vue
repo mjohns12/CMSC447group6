@@ -43,13 +43,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { Event, EventStatus, EventStatusType } from '@/interfaces/Event';
-  import Icon from 'vue-awesome/components/Icon.vue';
 
-  @Component({
-    components: {
-      Icon
-    }
-  })
+  @Component
   export default class EventComponent extends Vue {
     @Prop() private event!: Event;
     @Prop() private buttons!: any;

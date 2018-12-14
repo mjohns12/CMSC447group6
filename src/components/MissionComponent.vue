@@ -7,14 +7,14 @@
           header-bg-variant="primary"
           header-text-variant="white">
     <div class="button-container">
-      <b-btn block v-b-toggle.events variant="primary">Events</b-btn>
+      <b-btn block v-b-toggle="'events' + mission.id" variant="primary">Events</b-btn>
     </div>
-    <b-collapse id="events" class="mt-2">
+    <b-collapse :id="'events' + mission.id" class="mt-2">
       <b-card-group deck>
         <EventComponent :event="event"
                         v-for="event in mission.events"
                         :key="event.id">
-          <EventDetailModal :event="event" :missionid="mission.id"/>
+          <EventDetailModal :event="event" :missionid="mission.id" admin="true"/>
           <b-btn variant="danger" @click="service.removeEventFromMission(event)">Remove</b-btn>
         </EventComponent>
       </b-card-group>
@@ -22,9 +22,9 @@
     </b-collapse>
     
     <div class="button-container">
-      <b-btn block v-b-toggle.first-responders variant="primary">First Responders</b-btn>
+      <b-btn block v-b-toggle="'first-responders' + mission.id" variant="primary">First Responders</b-btn>
     </div>
-    <b-collapse id="first-responders" class="mt-2">
+    <b-collapse :id="'first-responders' + mission.id" class="mt-2">
       <b-card-group deck>
         <ResponderComponent :firstResponder="responder" 
                             v-for="responder in mission.firstResponders" 
@@ -43,9 +43,9 @@
     </b-collapse>
 
     <div class="button-container">
-      <b-btn block v-b-toggle.equipment variant="primary">Equipment</b-btn>
+      <b-btn block v-b-toggle="'equipment' + mission.id" variant="primary">Equipment</b-btn>
     </div>
-    <b-collapse id="equipment" class="mt-2">
+    <b-collapse :id="'equipment' + mission.id" class="mt-2">
       <b-card-group deck>
         <EquipmentComponent v-for="equipment in mission.equipment" 
                             :key="equipment.id"
