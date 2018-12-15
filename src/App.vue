@@ -13,7 +13,7 @@
           </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-navbar-nav>
-          <b-nav-item to="/first-responder/98765">First Responder</b-nav-item>
+          <b-nav-item to="/first-responder/1">First Responder</b-nav-item>
           <b-nav-item to="/call-center">Call Center</b-nav-item>
         </b-navbar-nav>
       </b-collapse>

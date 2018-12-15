@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
   import { Event } from '@/interfaces/Event';
   import EventComponent from './EventComponent.vue';
   import { Service } from '@/Services';
@@ -48,6 +48,7 @@
       this.unassignedEvents = await this.service.getUnassignedEvents();
     }
 
+    @Emit('requireUpdate')
     private async onAddEvent(event: Event) {
       await this.service.addEventToMission(event, this.missionid);
       this.unassignedEvents = await this.service.getUnassignedEvents();

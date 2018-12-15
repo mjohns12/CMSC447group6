@@ -1,7 +1,13 @@
 
 <template>
   <div class="main" v-if="mission">
-    <div class="event-map">
+    <b-alert variant="success"
+             dismissible
+             :show="showBanner"
+             @dismissed="showBanner=false">
+      {{ this.bannerText }}
+    </b-alert>
+    <div class="event-map" v-if="mission.events.length">
       <div class="event-sidebar">
         Events:
         <EventComponent v-for="event in mission.events"
@@ -73,20 +79,33 @@
     private responderList: FirstResponder[] = [];
     private selectedEvent: Event | null = null;
     private chosenEvent: Event | null | undefined = null;
+    private showBanner: boolean = false;
+    private bannerText = '';
  
-    private async created(): Promise<void> {
+    private created(): void {
+      this.loadFromServer();
+    }
+
+    private async loadFromServer(): Promise<void> {
+      // Get the responder's data and most recent status
       this.responder = await this.service.getResponder(this.id);
       const status = this.mostRecentStatus(this.responder);
+      // If the responder exists and has a most recent status associated to a mission, get the mission they're on
       if (this.responder && status.mission_id) {
         this.mission = await this.service.getMission(status.mission_id);
       }
+      // If the responder has a chosen event, focus that one
       if (status.event_id && this.mission) {
         this.chosenEvent = this.mission.events.find((event) => {
           return status.event_id === event.id;
         });
+        this.selectedEvent = null;
+        this.responderList = this.mission.firstResponders;
       }
     }
 
+    // Function to return the most recent status associated to the given First Responder
+    // That status has the current mission/event the responder is going to
     private mostRecentStatus(responder: FirstResponder): ResponderStatus {
       if (responder && responder.statuses && responder.statuses.length) {
         return responder.statuses.reduce((newestStatus, status): ResponderStatus => {
@@ -100,61 +119,61 @@
       }
     }
 
+    // Function that runs every time the responder ID is changed
+    // This should only really happen when the URL is changed
     @Watch('id')
     private async onIdChanged(): Promise<void> {
+      // Get the new responder and their current status
       this.responder = await this.service.getResponder(this.id);
-      if (this.responder && this.responder.assignedMissionID) {
-        this.mission = await this.service.getMission(this.responder.assignedMissionID);
-      } else {
-        this.mission = null;
+      const status = this.mostRecentStatus(this.responder);
+      // Get the mission the responder is on
+      if (this.responder && status.mission_id) {
+        this.mission = await this.service.getMission(status.mission_id);
+      }
+      // If the responder is already going to an event, focus it
+      if (status.event_id && this.mission) {
+        this.chosenEvent = this.mission.events.find((event) => {
+          return status.event_id === event.id;
+        });
       }
     }
 
+    // Function that's called when the mission is changed
     @Watch('mission')
     private onMissionChanged(): void {
+      // If the mission isn't null, find the new map center, then reload the responderlist
+      // If you don't reload that, it'll still have the responders in the old mission in it
       if (this.mission) {
         const firstEvent = this.mission.events[0];
-        this.center = [firstEvent.lat, firstEvent.lon];
+        if (firstEvent && firstEvent.lat && firstEvent.lon) {
+          this.center = [firstEvent.lat, firstEvent.lon];
+        }
         this.responderList = this.mission.firstResponders;
       }
     }
 
-    private onChoose(event: Event): void {
-      if (this.chosenEvent !== event) {
-        this.chosenEvent = event;
-      } else {
-        this.chosenEvent = null;
-      }
-    }
-
-    @Watch('chosenEvent')
-    private async onChosenChanged() {
+    // Function called when a 'choose' button is clicked, changes the event the first responder goes to,
+    // then runs everything done on create, so everything stays consistent
+    private async onChoose(event: Event) {
+      this.chosenEvent = this.chosenEvent !== event ? event : null;
       if (this.responder) {
-        await this.service.assignResponder(this.chosenEvent, this.responder);
-        this.responder = await this.service.getResponder(this.id);
+        const eventId = this.chosenEvent ? this.chosenEvent.id : null;
+        const missionId = this.mission ? this.mission.id : null;
 
-        const status = this.mostRecentStatus(this.responder);
-        if (status.event_id && this.mission) {
-          this.chosenEvent = this.mission.events.find((event) => {
-            return status.event_id === event.id;
-          });
-        }
+        this.bannerText = await this.service.assignResponder(eventId, this.responder, missionId);
+        this.showBanner = true;
+
+        this.loadFromServer();
       }
     }
 
+    // Function called whenever a 'Focus' button is clicked, recalculates the map center,
+    // and filters the list of responders to match with the selected event
     private onSelect(event: Event): void {
-      if (this.selectedEvent !== event) {
-        this.selectedEvent = event;
-      } else {
-        this.selectedEvent = null;
-      }
-    }
-
-    @Watch('selectedEvent')
-    private onSelectedChanged(): void {
       if (!this.mission) {
         return;
       }
+      this.selectedEvent = this.selectedEvent !== event ? event : null;
       if (this.selectedEvent) {
         this.center = [this.selectedEvent.lat, this.selectedEvent.lon];
         this.responderList = this.mission.firstResponders

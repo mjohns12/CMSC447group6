@@ -25,7 +25,7 @@
                   label-for="phone-input"
                   horizontal>
       <b-form-input id="phone-input"
-                    v-model="form.phone"
+                    v-model="form.phoneNum"
                     type="text"
                     placeholder="Phone #"
                     required/>
@@ -119,6 +119,7 @@
 
   import { Component, Vue } from 'vue-property-decorator';
   import { Occupation } from '@/interfaces/FirstResponder';
+  import { Service } from '@/Services';
 
   @Component
   export default class CreateResponder extends Vue {
@@ -126,7 +127,7 @@
     private form = {
       fName: '',
       lName: '',
-      phone: '',
+      phoneNum: '',
       streetNum: null,
       streetName: '',
       city: '',
@@ -137,6 +138,7 @@
       equipment: ''
     };
     private show = true;
+    private service = new Service();
 
     get occupations(): Occupation[] {
       return Object.values(Occupation);
@@ -144,7 +146,7 @@
 
     private onSubmit(evt: Event) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.service.createEvent(this.form);
     }
 
     private onReset(evt: Event) {
@@ -153,7 +155,7 @@
       this.form = {
       fName: '',
       lName: '',
-      phone: '',
+      phoneNum: '',
       streetNum: null,
       streetName: '',
       city: '',

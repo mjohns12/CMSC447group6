@@ -2,7 +2,7 @@
   <div class="inProgress">
     <MissionComponent v-for="mission in missions"
       v-bind:key="mission.id"
-      v-bind:mission="mission">
+      v-bind:initialMission="mission">
     </MissionComponent>
   </div>
 </template>

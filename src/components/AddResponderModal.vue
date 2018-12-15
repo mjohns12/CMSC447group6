@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Prop } from 'vue-property-decorator';
+  import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
   import { FirstResponder } from '@/interfaces/FirstResponder';
   import ResponderComponent from './ResponderComponent.vue';
   import { Service } from '@/Services';
@@ -48,6 +48,7 @@
       this.unassignedResponders = await this.service.getUnassignedResponders();
     }
 
+    @Emit('requireUpdate')
     private async onAddResponder(responder: FirstResponder) {
       await this.service.addResponderToMission(responder, this.missionid);
       this.unassignedResponders = await this.service.getUnassignedResponders();
